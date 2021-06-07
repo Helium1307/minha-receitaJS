@@ -1,0 +1,20 @@
+
+  img{
+    width: 44rem;
+    height: 40rem;
+    border-radius: 10px;
+
+    margin: 2rem 0 1.6rem 0;
+  }
+
+  .contentContainer {
+    
+      font-family: Nunito, sans-serif;
+
+      width: 25rem;
+
+  }
+  
+  h2 {
+    padding-bottom: 1rem;
+  }

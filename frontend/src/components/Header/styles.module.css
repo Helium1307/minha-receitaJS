@@ -1,0 +1,42 @@
+
+ 
+  header{
+    margin-bottom: 2.4rem;
+  }
+  .container {
+    padding: 0.3rem 0 0 1.6rem;
+    
+    font-family: Damion, sans-serif;
+  
+    width: 57%;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  span {
+    font-size: 4rem;
+  }
+
+  a {
+    color: var(--main-color);
+    text-decoration: none;
+  }
+  
+  .icon {
+    font-size: 3rem;
+    transition: 0.5s;
+    color: var(--main-color);
+    border-radius: 0.5rem;
+  }
+
+  .icon:hover {
+    background: var(--main-color);
+    color: var(--white);
+
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+  }
+   
+  
+
