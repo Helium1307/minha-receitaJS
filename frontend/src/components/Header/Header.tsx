@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 
 interface IHeaderProps {
-  openFunction: any;
+  openFunction?: any;
 }
 
 export default function Header({ openFunction }: IHeaderProps) {

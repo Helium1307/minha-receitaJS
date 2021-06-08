@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { BsPlusCircle } from 'react-icons/bs'
 import styles from './styles.module.css';
+import { useState } from 'react';
+import NewRecipe from '../NewRecipe/NewRecipe';
 
 
 interface ISideBarProps {
@@ -8,13 +10,15 @@ interface ISideBarProps {
 }
 
 export default function SideBar ({ closeSideBar }: ISideBarProps) {
+  
+  
   return (
     <>
-      
       <div className={styles.container} onClick={()=>{closeSideBar()}}>
         
       </div>
      
+      
       <nav className={styles.sidebar}>
           <span>Minhas Receitas</span>
           
@@ -25,7 +29,7 @@ export default function SideBar ({ closeSideBar }: ISideBarProps) {
             <li><Link to="/">Vegetariano</Link></li>
           </ul>
 
-          <button><BsPlusCircle/> Adicionar receita</button>
+          <Link to="/register/new-recipe" className={styles.link} ><BsPlusCircle/> Adicionar receita</Link>
         </nav>
     </>
   );

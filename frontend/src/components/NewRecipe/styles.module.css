@@ -1,0 +1,102 @@
+.container {
+  background: #fafafa;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+
+  font-family: Bellota Text, Nunito, sans-serif;
+  color: #fafafa;
+}
+.titleForm {
+  font-family: Damion, Nunito, sans-serif;
+  font-size: 3rem;
+}
+
+.alignItens {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 4rem;
+}
+
+.formContainer {
+  background: var(--light-red);
+  width: 35rem;
+  height: 45rem;
+
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formRegister {
+  width: 20rem;
+  height: 35rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  margin-top: 1.3rem;
+
+}
+
+
+.formRegister label {
+  font-size: 1.3rem;
+}
+
+.formRegister input {
+  height: 2.1rem;
+  border: none;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  background: #fafafa;
+}
+.formRegister input::placeholder {
+  padding-left: 0.5rem;
+  font-family: Bellota Text, Nunito, sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+
+  color: #A9A9A9;
+}
+
+.listItems {
+  width: 20rem;
+  height: 10rem;
+  
+  border: 1px solid #fafafa;
+  border-radius: 5px;
+
+  overflow: auto;
+}
+.listItems li {
+  font-size: 1rem;
+
+  margin-left: 2rem;
+}
+
+.formRegister button {
+  font-family: Bellota Text, Nunito, sans-serif;
+  font-size: 2rem;
+  color: var(--light-red);
+
+  background: #fafafa;
+
+  border:none;
+  border-radius: 5px;
+
+  padding: 0.7rem;
+
+  cursor: pointer;
+}

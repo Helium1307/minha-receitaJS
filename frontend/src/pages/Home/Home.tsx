@@ -6,6 +6,7 @@ import SideBar from '../../components/SideBar/SideBar'
 
 
 import { useState } from "react"
+import NewRecipe from "../../components/NewRecipe/NewRecipe";
 
 export default function Home() {
 
