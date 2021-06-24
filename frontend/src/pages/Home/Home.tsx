@@ -4,13 +4,11 @@ import Header from "../../components/Header/Header";
 import Section from "../../components/Section/Section";
 import SideBar from '../../components/SideBar/SideBar'
 
-
-import { useState } from "react"
-import NewRecipe from "../../components/NewRecipe/NewRecipe";
+import { useIsOpen } from "../../hooks/useIsOpen";
 
 export default function Home() {
 
-  let [isOpen, setIsOpen] = useState<Boolean>(false);
+  const { isOpen, setIsOpen } = useIsOpen()
   
   return (
     <div className={styles.container}>

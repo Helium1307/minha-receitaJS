@@ -1,40 +1,42 @@
 import styles from './styles.module.css';
 import Header from '../Header/Header'
-import Input from '../Input/Input';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SideBar from '../SideBar/SideBar';
-import { stringify } from 'querystring';
+
+import { AiOutlineEnter } from 'react-icons/ai'
+import { CgClose } from 'react-icons/cg'
+
+import { useForm } from 'react-hook-form';
+import { useIsOpen } from '../../hooks/useIsOpen';
+
 
 interface INewRecipeProps {
   closeRegisterForm: any;
 }
+
+interface IRegistrationFormData {
+  name: string,
+  description: string,
+}
+
 export default function NewRecipe({ closeRegisterForm }: INewRecipeProps) {
   
-  let [isOpen, setIsOpen] = useState<Boolean>(false);
 
-  let [recipe, setRecipe] = useState({
-    name: "",
-    description: "",
-    ingredients: [""],
-  });
-  
-  let [enter, setEnter] = useState(false)
-  let [name, setName] = useState("");
-  let [description, setDescription] = useState("");
-  let [ingredients, setIngredients] = useState("");
+  let [ingredient, setIngredient] = useState('')
+  let [ingredientsList, setIngredientsList] = useState<Array<string>>([])
 
-  // Iniciando o splice direto pra não ficar valores atrasados do state
-  useEffect(()=>{
-    recipe.ingredients.splice(0, 1);
-  })
-  
-  useEffect(()=>{
-    setRecipe({
-      name: name,
-      description: description,
-      ingredients: [...recipe.ingredients, ingredients]
-    })
-  }, [enter])
+  const { isOpen, setIsOpen } = useIsOpen()
+
+  function handleRemoveIngredient(item: string, id: number) {
+    setIngredientsList(
+      ingredientsList.filter((ingredient) => ingredientsList.indexOf(ingredient) !== id)
+    )
+    
+  }
+ 
+  const { register , handleSubmit} = useForm();
+
+  const onSubmit = (data: IRegistrationFormData) =>{ console.log(data) }
   return (
     <>
       {isOpen && <SideBar closeSideBar={()=>{setIsOpen(!isOpen)}}/> }
@@ -44,55 +46,65 @@ export default function NewRecipe({ closeRegisterForm }: INewRecipeProps) {
         <div className={styles.formContainer}>
           <span className={styles.titleForm}>Adicione uma receita</span>
           
-          <form action="" 
+          <form  
             className={styles.formRegister}
-            onSubmit={e =>{
-              e.preventDefault();
-              
-            }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <div className={styles.alignItens}>
               <label>Digite o nome da receita *</label>
               <input 
-                required type="text" 
-                value={name} 
-                onChange={e => setName(e.target.value )}
+                required
+                {...register("name", { required: true })}
                 placeholder="Ex: Galinha Cabidela"
               />
             </div>
             <div className={styles.alignItens}>
               <label>Digite uma descrição</label>
-              <input type="text" 
-                value={description} 
-                onChange={(e)=>{setDescription(e.target.value)}} 
+              <input 
+                type="text"
                 placeholder="Ex: Receita da família, feita pela vovó"
+                {...register("description")}
               />
             </div>
             <div className={styles.alignItens}>
               <label>Digite os ingredientes *</label>
               <input 
-                required type="text" 
-                value={ingredients} 
-                onChange={(e)=>{setIngredients(e.target.value)}} 
-                placeholder="Ex: 200g de Frango" 
-                onKeyDown={(e)=>{
-                  if(e.key === "Enter"){
-                    setEnter(!enter);
+                required
+                type="text" 
+                placeholder="Ex: 200g de Frango"
+                value={ingredient}
+                onChange={(e)=>{setIngredient(e.target.value)}}
+                onKeyDown={(key)=>{
+                  if(key.key === "Enter"){
+                    setIngredientsList([...ingredientsList, ingredient])
                   }
                 }}
               />
+              <div> <p>Pressione Enter para salvar <AiOutlineEnter/></p> </div>
             </div>
 
             <ul className={styles.listItems}>
-               {
-                  recipe.ingredients.map((ingredients, index) => {
-                    return <li key={index}>{ingredients}</li>
-                  })
-                }
+               {ingredientsList.map((ingredient, index) => {
+                 return (
+                 <li key={index}> 
+                  {ingredient} 
+                  <button 
+                    type="button"
+                    className={styles.deleteIngredient}
+                    onClick={()=>{ handleRemoveIngredient(ingredient,index) }}
+                  >
+                    <CgClose/>
+                  </button>
+                </li>)
+                  
+               })}
             </ul>
-            <button type="submit">Adicionar</button>
+            <button 
+              type="submit"
+              className={styles.submitButton}
+            >
+                Adicionar</button>
           </form>
-        
         </div>
       </div>
 
