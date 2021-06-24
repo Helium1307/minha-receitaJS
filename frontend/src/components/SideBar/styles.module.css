@@ -1,3 +1,15 @@
+@keyframes leftSlide{
+  from{
+    
+
+    transform: translateX(-100%)
+  }
+  to{
+    
+    transform: translateX(0%)
+  }
+}
+
 .container {
   background: #363636b4;
   position: absolute;
@@ -21,7 +33,9 @@
   align-items: center;
 
   position: absolute;
-
+  
+  animation-name: leftSlide;
+  animation-duration: 0.6s;
 }
 .sidebar span {
   font-family: Damion;
@@ -34,7 +48,7 @@ ul li a{
   font-family: Bellota Text, Nunito, sans-serif;
   transition: .3s;
 }
-.sidebar a:hover{
+.sidebar li a:hover{
   padding: 0.6rem;
 
   border-radius: 3px;
@@ -42,11 +56,11 @@ ul li a{
   color: var(--light-red);
 }
 
-ul li {
+.sidebar ul li {
   list-style: none;
 }
 
-ul {
+.sidebar ul {
   font-size: 2.4rem;
   width: 25rem;
   height: 30rem;
@@ -58,7 +72,7 @@ ul {
   justify-content: space-between;
 }
 
-.sidebar button {
+.sidebar .link{
   width: 100%;
   height: 5rem;
 
@@ -79,7 +93,9 @@ ul {
   transition: .3s;
 }
 
-.sidebar button:hover {
-  background: var(--white);
+.link:hover {
+  padding: 0 4rem;
+  border-radius: 3px;
+  background:var(--white);
   color: var(--light-red);
 }
