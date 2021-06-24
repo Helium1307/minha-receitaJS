@@ -1,7 +1,9 @@
-import styles from './styles.module.css';
+import { useEffect, useState } from 'react';
+
 import Header from '../Header/Header'
-import { useState } from 'react';
 import SideBar from '../SideBar/SideBar';
+
+import styles from './styles.module.css';
 
 import { AiOutlineEnter } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
@@ -10,33 +12,34 @@ import { useForm } from 'react-hook-form';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 
-interface INewRecipeProps {
-  closeRegisterForm: any;
-}
 
 interface IRegistrationFormData {
   name: string,
   description: string,
 }
 
-export default function NewRecipe({ closeRegisterForm }: INewRecipeProps) {
+export default function NewRecipe() {
   
 
   let [ingredient, setIngredient] = useState('')
   let [ingredientsList, setIngredientsList] = useState<Array<string>>([])
+  const { isOpen, setIsOpen, resetIsOpen } = useIsOpen()
 
-  const { isOpen, setIsOpen } = useIsOpen()
+  const { register , handleSubmit} = useForm();
+  const onSubmit = (data: IRegistrationFormData) =>{ console.log(data) }
 
   function handleRemoveIngredient(item: string, id: number) {
     setIngredientsList(
-      ingredientsList.filter((ingredient) => ingredientsList.indexOf(ingredient) !== id)
-    )
-    
+      ingredientsList.filter((ingredient) => ingredientsList.indexOf(ingredient) !== id )
+    ) 
   }
- 
-  const { register , handleSubmit} = useForm();
 
-  const onSubmit = (data: IRegistrationFormData) =>{ console.log(data) }
+  //Reseta o isOpen do context 
+  useEffect(() =>{
+    resetIsOpen();
+  },[])
+ 
+  
   return (
     <>
       {isOpen && <SideBar closeSideBar={()=>{setIsOpen(!isOpen)}}/> }
