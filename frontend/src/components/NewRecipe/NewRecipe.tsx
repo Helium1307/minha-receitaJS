@@ -11,27 +11,44 @@ import { CgClose } from 'react-icons/cg'
 import { useForm } from 'react-hook-form';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
-
+import { api } from '../../services/api';
+import { FormEvent } from 'react';
 
 interface IRegistrationFormData {
   name: string,
   description: string,
 }
 
-export default function NewRecipe() {
+export function NewRecipe() {
   
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   let [ingredient, setIngredient] = useState('')
   let [ingredientsList, setIngredientsList] = useState<Array<string>>([])
   const { isOpen, setIsOpen, resetIsOpen } = useIsOpen()
 
-  const { register , handleSubmit} = useForm();
-  const onSubmit = (data: IRegistrationFormData) =>{ console.log(data) }
+  // const { register , handleSubmit} = useForm();
+  // const onSubmit = (data: IRegistrationFormData) =>{ console.log(data) }
+ 
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+  }
 
   function handleRemoveIngredient(item: string, id: number) {
     setIngredientsList(
       ingredientsList.filter((ingredient) => ingredientsList.indexOf(ingredient) !== id )
     ) 
+  }
+
+  async function handlePost() {
+    await api.post('/register', { 
+      name: name, 
+      description: description, 
+      ingredients: ingredientsList  
+    });
+    console.log(name, description, ingredientsList);
   }
 
   //Reseta o isOpen do context 
@@ -40,6 +57,7 @@ export default function NewRecipe() {
   },[])
  
   
+
   return (
     <>
       {isOpen && <SideBar closeSideBar={()=>{setIsOpen(!isOpen)}}/> }
@@ -51,13 +69,13 @@ export default function NewRecipe() {
           
           <form  
             className={styles.formRegister}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(event)=>{handleSubmit(event)}}
           >
             <div className={styles.alignItens}>
               <label>Digite o nome da receita *</label>
               <input 
-                required
-                {...register("name", { required: true })}
+                onChange={(e)=>{ setName(e.target.value) }}
+                
                 placeholder="Ex: Galinha Cabidela"
               />
             </div>
@@ -66,7 +84,7 @@ export default function NewRecipe() {
               <input 
                 type="text"
                 placeholder="Ex: Receita da família, feita pela vovó"
-                {...register("description")}
+                onChange={(e)=>{ setDescription(e.target.value) }}
               />
             </div>
             <div className={styles.alignItens}>
@@ -79,6 +97,7 @@ export default function NewRecipe() {
                 onChange={(e)=>{setIngredient(e.target.value)}}
                 onKeyDown={(key)=>{
                   if(key.key === "Enter"){
+                    key.preventDefault();
                     setIngredientsList([...ingredientsList, ingredient])
                   }
                 }}
@@ -105,6 +124,7 @@ export default function NewRecipe() {
             <button 
               type="submit"
               className={styles.submitButton}
+              onClick={()=>{ handlePost() }}
             >
                 Adicionar</button>
           </form>

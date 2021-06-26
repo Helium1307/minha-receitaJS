@@ -6,7 +6,7 @@ import SideBar from '../../components/SideBar/SideBar'
 
 import { useIsOpen } from "../../hooks/useIsOpen";
 
-export default function Home() {
+export function Home() {
 
   const { isOpen, setIsOpen } = useIsOpen()
   
