@@ -24,7 +24,8 @@ module.exports = class RegisterController {
     }
 
     static async put(req, res, next){
-        res.send({registro: req.body});
+        const newRegister = await registerRepository.findByIdAndUpdate(req.params.registroId);
+        return res.send({ newRegister });
     }
 
     static async delete(req, res, next){
