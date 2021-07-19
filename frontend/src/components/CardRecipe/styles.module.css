@@ -1,0 +1,43 @@
+.cardContainer {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+
+  font-family: Nunito, sans-serif;
+
+  width: 25rem;
+  height: 13rem;
+
+  overflow: hidden;
+}
+
+.content{
+  border-top: 1px solid #979797;
+  background-color: var(--light-red);
+
+  height: 100%;
+
+  color: var(--white);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0.3rem 0 0 0.5rem;
+}
+
+.content span {
+  font-size: 1rem;
+  font-weight: 300;
+  font-size: 1rem;
+
+  text-overflow: ellipsis;
+  height: 5rem;
+
+
+}
+
+.content p {
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  margin-bottom: 1rem;
+}

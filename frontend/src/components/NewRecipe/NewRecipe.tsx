@@ -8,7 +8,6 @@ import styles from './styles.module.css';
 import { AiOutlineEnter } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
 
-import { useForm } from 'react-hook-form';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 import { api } from '../../services/api';
