@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import CardRecipe from '../../components/CardRecipe/CardRecipe'
+import SideBar from '../../components/SideBar/SideBar'
+import Header from '../../components/Header/Header'
+
+import { useIsOpen } from '../../hooks/useIsOpen';
 import { api } from '../../services/api'
+
+import styles from './styles.module.css';
 
 interface IRegistroObjectTypes {
   name: string,
   _id: string,
-  __v: number,
   description: string,
   ingredients: Array<string>
 }
@@ -13,8 +19,12 @@ interface IRegistroObjectTypes {
 
 
 export function RecipeType() {
- 
-  const [ registroList, setRegistroList ] = useState<IRegistroObjectTypes[]>([])  
+  const { isOpen, setIsOpen, resetIsOpen } = useIsOpen()
+  useEffect(() =>{
+    resetIsOpen();
+  },[])
+
+  const [ registroList, setRegistroList ] = useState<[]>([])  
     
     const handleGetData = async () => {
       const { data } = await api.get("/register");
@@ -26,20 +36,24 @@ export function RecipeType() {
     useEffect(() => { handleGetData() }, [])
     
     
-  
 
   return(
-    <div>
-      {registroList.map((registro: IRegistroObjectTypes)=>{
-        return(
-          <ul>
-            <li key={registro._id}>{registro.name}</li>
-          </ul>
-        )
+      <div className={styles.mainContainer}>
+        <>
+          {isOpen && <SideBar closeSideBar={()=>{setIsOpen(!isOpen)}}/> }
+        </>
+        <Header openFunction={()=>{setIsOpen(!isOpen)}}/>
         
-      })}
-      
-
-    </div>
+        <main>
+          {registroList.map((registro: IRegistroObjectTypes)=>{
+            return(
+              <CardRecipe title={registro.name} description={registro.description}/>
+            )
+            
+          })}
+        </main>
+      </div>
+ 
+    
   )
 }

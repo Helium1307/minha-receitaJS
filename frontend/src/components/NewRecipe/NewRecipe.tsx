@@ -12,6 +12,7 @@ import { useIsOpen } from '../../hooks/useIsOpen';
 
 import { api } from '../../services/api';
 import { FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
 
 interface IRegistrationFormData {
   name: string,
@@ -19,12 +20,13 @@ interface IRegistrationFormData {
 }
 
 export function NewRecipe() {
-  
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const history = useHistory();
 
-  let [ingredient, setIngredient] = useState('')
-  let [ingredientsList, setIngredientsList] = useState<Array<string>>([])
+  const [name, setName] = useState<string | undefined>();
+  const [description, setDescription] = useState<string | undefined>();
+  const [ingredient, setIngredient] = useState('')
+  const [ingredientsList, setIngredientsList] = useState<Array<string>>([])
+  
   const { isOpen, setIsOpen, resetIsOpen } = useIsOpen()
 
   // const { register , handleSubmit} = useForm();
@@ -123,7 +125,12 @@ export function NewRecipe() {
             <button 
               type="submit"
               className={styles.submitButton}
-              onClick={()=>{ handlePost() }}
+              onClick={()=>{ 
+                
+                handlePost();
+                alert("Receita criada com sucesso !!")
+                history.push("/");
+              }}
             >
                 Adicionar</button>
           </form>
